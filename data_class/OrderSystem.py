@@ -1,13 +1,14 @@
 import pandas as pd
+from datetime import datetime
 
-
+dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
 class OrderSystem:
     def __init__(self, orders_path, restaurants_path):
         self.orders_path = orders_path
         self.restaurants_path = restaurants_path
 
     def load_data(self):
-        xl_file = pd.read_excel(self.orders_path, parse_dates=['Order Date'])
+        xl_file = pd.read_excel(self.orders_path, parse_dates=['Order Date'],date_parser=dateparse)
         orders_df = xl_file
         xl_file = pd.ExcelFile(self.restaurants_path)
         restaurants_df = xl_file.parse()
